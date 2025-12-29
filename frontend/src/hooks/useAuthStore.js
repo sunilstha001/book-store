@@ -17,6 +17,7 @@ export const useAuthStore = create(
         })),
 
       cart: [],
+
       addToCart: (book) =>
         set((state) => {
           const exists = state.cart.find((item) => item._id === book._id);
@@ -30,11 +31,23 @@ export const useAuthStore = create(
             return { cart: [...state.cart, { ...book, qty: 1 }] };
           }
         }),
+
       removeFromCart: (bookId) =>
         set((state) => ({
           cart: state.cart.filter((item) => item._id !== bookId),
         })),
+
       clearCart: () => set({ cart: [] }),
+
+      // ⭐ NEW — increase / decrease quantity
+      updateCartQty: (bookId, qty) =>
+        set((state) => ({
+          cart: state.cart.map((item) =>
+            item._id === bookId
+              ? { ...item, qty: Math.max(1, Number(qty)) } // never below 1
+              : item
+          ),
+        })),
     }),
     {
       name: 'auth-storage',
