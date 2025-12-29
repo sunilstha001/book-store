@@ -27,7 +27,7 @@ const server = http.createServer(app); // Create an HTTP server for Express
 const io = new Server(server, {
   // Attach Socket.IO to the server
   cors: {
-    origin: 'http://localhost:5173', // Your React app's URL
+    origin: process.env.FRONTEND_URL, // Your React app's URL
     credentials: true, // Needed for cookie-based auth
   },
 });
@@ -43,7 +43,7 @@ cloudinary.config({
 
 // --- Middleware (Things that run on every request) ---
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow our React app to talk to this server
+  origin: process.env.FRONTEND_URL, // Allow our React app to talk to this server
   credentials: true,
 }));
 app.use(express.json()); // Allow server to accept JSON data
