@@ -4,7 +4,7 @@ import uploadToCloudinary from '../utils/cloudinaryUploader.js';
 // CREATE A NEW BOOK 
 export const createBook = async (req, res) => {
   try {
-    const { title, author, price } = req.body;
+    const { title, author, price, description } = req.body;
 
     // We must have a file to create a book
     if (!req.file) {
@@ -20,6 +20,7 @@ export const createBook = async (req, res) => {
       author,
       price,
       bookImage: bookImageUrl,
+      description,
     });
 
     const createdBook = await book.save();
@@ -59,7 +60,7 @@ export const getBookById = async (req, res) => {
 //  UPDATE A BOOK 
 export const updateBook = async (req, res) => {
   try {
-    const { title, author, price } = req.body;
+    const { title, author, price, description } = req.body;
     const book = await Book.findById(req.params.id);
 
     if (!book) {
@@ -70,6 +71,7 @@ export const updateBook = async (req, res) => {
     book.title = title || book.title;
     book.author = author || book.author;
     book.price = price || book.price;
+    book.description = description !== undefined ? description : book.description;
 
     // Check if a new image was uploaded
     if (req.file) {

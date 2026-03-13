@@ -7,6 +7,7 @@ const EditBookPage = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
   const [bookImage, setBookImage] = useState(null);
   const [currentImageUrl, setCurrentImageUrl] = useState('');
   const [error, setError] = useState('');
@@ -23,6 +24,7 @@ const EditBookPage = () => {
         setTitle(book.title);
         setAuthor(book.author);
         setPrice(book.price);
+        setDescription(book.description || '');
         setCurrentImageUrl(book.bookImage);
       } catch (err) {
         setError('Failed to fetch book data');
@@ -42,6 +44,7 @@ const EditBookPage = () => {
     formData.append('title', title);
     formData.append('author', author);
     formData.append('price', price);
+    formData.append('description', description);
     if (bookImage) {
       formData.append('bookImage', bookImage); 
     }
@@ -104,6 +107,15 @@ const EditBookPage = () => {
             className="w-full px-4 py-2 border rounded-lg"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Description</label>
+          <textarea
+            className="w-full px-4 py-2 border rounded-lg"
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="mb-6">
