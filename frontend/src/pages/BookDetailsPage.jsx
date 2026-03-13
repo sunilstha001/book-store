@@ -83,6 +83,12 @@ const BookDetailsPage = () => {
             <p className="text-3xl font-bold text-teal-600 mb-6"> 
               ${book.price.toFixed(2)}
             </p>
+            {book.description && (
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold text-gray-800 mb-1">Description</h2>
+                <p className="text-gray-700 leading-relaxed">{book.description}</p>
+              </div>
+            )}
             
             {user && isAdmin ? (
               <div className="mt-8 border-t pt-4">
